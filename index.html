@@ -1,289 +1,861 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Event Finder - Discover and Share Local Events</title>
-  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
-  <link href="css/frame.css" rel="stylesheet" />
-  <link href="css/controls.css" rel="stylesheet" />
-  <link href="css/custom.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Open+Sans+Condensed:300,700|Source+Sans+Pro:400,700" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/footer.js"></script>
-  <script src="js/custom.js" defer></script>
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Finder - Discover & Share Amazing Events</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      position: relative;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
+        /* Animated gradient background */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
 
-    header p.tagline {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      font-weight: 300;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .btn-primary {
-      background-color: #2575fc;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin: 0 10px;
-      text-decoration: none;
-      display: inline-block;
-    }
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
 
-    .btn-primary:hover {
-      background-color: #1a52d1;
-    }
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
 
-    main {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
 
-    section.features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 40px;
-      margin-bottom: 60px;
-    }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
 
-    .feature-item {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      flex: 1 1 280px;
-      max-width: 320px;
-      padding: 30px 20px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
 
-    .feature-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
 
-    .feature-item i {
-      font-size: 3.5rem;
-      color: #2575fc;
-      margin-bottom: 20px;
-    }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
 
-    .feature-item h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
 
-    .feature-item p {
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.5;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-    section.media {
-      margin-bottom: 60px;
-      text-align: center;
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-    section.media h2 {
-      font-size: 2rem;
-      margin-bottom: 30px;
-      font-weight: 700;
-      color: #2575fc;
-    }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
 
-    .media-placeholder {
-      background-color: #ddd;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 900px;
-      height: 400px;
-      margin: 0 auto 20px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 1.5rem;
-      font-style: italic;
-      user-select: none;
-    }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-    section.testimonials {
-      background: #2575fc;
-      color: white;
-      padding: 50px 20px;
-      border-radius: 15px;
-      max-width: 900px;
-      margin: 0 auto 60px auto;
-      box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
-    }
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
 
-    section.testimonials h2 {
-      font-size: 2rem;
-      margin-bottom: 30px;
-      font-weight: 700;
-    }
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
 
-    .testimonial {
-      font-style: italic;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      position: relative;
-      padding-left: 40px;
-    }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+        }
 
-    .testimonial::before {
-      content: "\201C";
-      font-size: 3rem;
-      position: absolute;
-      left: 0;
-      top: -10px;
-      color: #a3c1ff;
-    }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.7s forwards;
+        }
 
-    footer {
-      background-color: #222;
-      color: #ccc;
-      padding: 30px 20px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    footer a {
-      color: #57a0ff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+        }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .app-badges img {
-      height: 50px;
-      margin: 0 10px;
-      vertical-align: middle;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
 
-    .app-badges img:hover {
-      transform: scale(1.1);
-    }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.6);
+        }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      section.features {
-        flex-direction: column;
-        align-items: center;
-      }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
 
-      .feature-item {
-        max-width: 90%;
-      }
-    }
-  </style>
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+            transform: translateY(-5px);
+        }
+
+        /* Floating shapes */
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: white;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            bottom: 30%;
+            left: 15%;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 10px;
+            animation-delay: 4s;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* How it works section */
+        .how-it-works {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 1rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive Map Preview */
+        .map-preview {
+            padding: 6rem 0;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .map-mockup {
+            max-width: 800px;
+            margin: 3rem auto;
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-pins {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .pin {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: pinPulse 2s infinite;
+        }
+
+        .pin::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .pin-1 { top: 20%; left: 30%; animation-delay: 0s; }
+        .pin-2 { top: 40%; right: 25%; animation-delay: 0.5s; }
+        .pin-3 { bottom: 30%; left: 20%; animation-delay: 1s; }
+        .pin-4 { top: 60%; left: 60%; animation-delay: 1.5s; }
+
+        @keyframes pinPulse {
+            0%, 100% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.2); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #5a67d8, #6b46c1);
+        }
+    </style>
 </head>
-
 <body>
-  <div class="menu-container"></div>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-map-marker-alt"></i> Event Finder
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <header>
-    <h1>Event Finder</h1>
-    <p class="tagline">Discover, Share, and Attend Local Events with Ease</p>
-    <a href="#post-event" class="btn-primary">Post Your Event</a>
-    <a href="#map" class="btn-primary">Explore Events Map</a>
-  </header>
-
-  <main>
-    <section class="features" aria-label="App Features">
-      <article class="feature-item" id="post-event">
-        <i class="fas fa-calendar-plus"></i>
-        <h3>Post Your Events</h3>
-        <p>Everyday users can easily post their events with details, location, and pricing options.</p>
-      </article>
-      <article class="feature-item" id="map">
-        <i class="fas fa-map-marked-alt"></i>
-        <h3>Interactive Map</h3>
-        <p>Events appear on an in-app map, visible to all users for easy discovery and navigation.</p>
-      </article>
-      <article class="feature-item" id="pricing">
-        <i class="fas fa-tags"></i>
-        <h3>Flexible Pricing</h3>
-        <p>Set your event as free or priced. Attendees can pay securely through MTN mobile payment.</p>
-      </article>
-      <article class="feature-item" id="payment-verification">
-        <i class="fas fa-qrcode"></i>
-        <h3>QR Code Verification</h3>
-        <p>Verify attendees' payments with QR codes for seamless event entry management.</p>
-      </article>
-      <article class="feature-item" id="suggestions">
-        <i class="fas fa-lightbulb"></i>
-        <h3>Event Suggestions</h3>
-        <p>Get personalized event recommendations based on your interests and location.</p>
-      </article>
+    <!-- Hero Section -->
+    <section class="hero gradient-bg" id="home">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        
+        <div class="hero-content">
+            <h1>Discover Amazing Events Near You</h1>
+            <p>Join thousands of users who are connecting, creating, and sharing unforgettable experiences. Find local events or host your own with Event Finder.</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download App
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-play"></i> Watch Demo
+                </a>
+            </div>
+        </div>
     </section>
 
-    <section class="media" aria-label="Media and Demonstrations">
-      <h2>App Preview</h2>
-      <div class="media-placeholder" id="map-placeholder">[Map will appear here]</div>
-      <div class="media-placeholder" id="video-placeholder">[Insert promotional video here]</div>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">Why Choose Event Finder?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Interactive Map View</h3>
+                    <p>Visualize all events in your area with our beautiful, interactive map. Zoom in to discover hidden gems or zoom out to explore events across the city.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Easy Event Creation</h3>
+                    <p>Create and share your events in seconds. Add photos, descriptions, pricing, and watch your event come to life on the map for everyone to see.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Flexible Pricing</h3>
+                    <p>Host free community events or sell tickets for premium experiences. Our platform supports both free and paid events with secure payment processing.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Driven</h3>
+                    <p>Connect with like-minded people in your area. Follow your favorite event organizers and never miss out on events that matter to you.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Smart Notifications</h3>
+                    <p>Get notified about events based on your interests and location. Never miss out on the perfect event happening right around the corner.</p>
+                </div>
+                
+                <div class="feature-card scroll-reveal floating">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Review & Rating System</h3>
+                    <p>Help others discover amazing events with our rating system. Leave reviews and read what others have to say about events you're interested in.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="testimonials" aria-label="User Testimonials">
-      <h2>What Our Users Say</h2>
-      <p class="testimonial">"Event Finder helped me discover amazing local events I never knew about!" – Alex P.</p>
-      <p class="testimonial">"Posting my events and managing attendees has never been easier." – Jamie L.</p>
-      <p class="testimonial">"The MTN payment integration and QR code verification make event entry smooth and secure." – Samira K.</p>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">How Event Finder Works</h2>
+            
+            <div class="steps-container">
+                <div class="step scroll-reveal">
+                    <div class="step-number">1</div>
+                    <h3>Download & Sign Up</h3>
+                    <p>Get the app from your app store and create your account in seconds. Set your location and interests to get personalized recommendations.</p>
+                </div>
+                
+                <div class="step scroll-reveal">
+                    <div class="step-number">2</div>
+                    <h3>Explore Events</h3>
+                    <p>Browse events on the interactive map or use filters to find exactly what you're looking for. From concerts to workshops, everything is at your fingertips.</p>
+                </div>
+                
+                <div class="step scroll-reveal">
+                    <div class="step-number">3</div>
+                    <h3>Join or Create</h3>
+                    <p>RSVP to events you love or create your own. Share your passion with the community and bring people together around shared interests.</p>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>
-    <p>© 2024 Event Finder. All rights reserved.</p>
-    <div class="app-badges">
-      <a href="javascript:void(0)" aria-label="Download on the App Store">
-        <img src="img/app-store-badge.png" alt="App Store Badge" />
-      </a>
-      <a href="javascript:void(0)" aria-label="Get it on Google Play">
-        <img src="img/google-play-badge.png" alt="Google Play Badge" />
-      </a>
-    </div>
-    <p>Contact us: <a href="mailto:support@eventfinder.com">support@eventfinder.com</a></p>
-  </footer>
+    <!-- Map Preview Section -->
+    <section class="map-preview" id="map-preview">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">See Events Come to Life</h2>
+            <p class="scroll-reveal">Our interactive map makes discovering events intuitive and fun. Watch as events appear in real-time as they're created by users in your area.</p>
+            
+            <div class="map-mockup scroll-reveal">
+                <div class="map-placeholder">
+                    <div class="event-pins">
+                        <div class="pin pin-1"></div>
+                        <div class="pin pin-2"></div>
+                        <div class="pin pin-3"></div>
+                        <div class="pin pin-4"></div>
+                    </div>
+                    <div style="z-index: 10; position: relative;">
+                        <i class="fas fa-image" style="font-size: 3rem; color: #ccc;"></i>
+                        <p style="margin-top: 1rem; color: #666;">Interactive Map Preview<br><small>Replace with actual app screenshot/video</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+        <div class="container">
+            <h2 class="scroll-reveal">Ready to Get Started?</h2>
+            <p class="scroll-reveal">Join thousands of users who are already discovering and sharing amazing events. Download Event Finder today and become part of the community.</p>
+            
+            <div class="cta-buttons scroll-reveal">
+                <a href="#" class="btn btn-primary">
+                    <i class="fab fa-apple"></i> Download for iOS
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fab fa-google-play"></i> Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Event Finder</h3>
+                    <p>Connecting communities through amazing events. Discover, create, and share experiences that matter.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Terms of Service</a></p>
+                    <p><a href="#">Support</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><a href="mailto:hello@eventfinder.com">hello@eventfinder.com</a></p>
+                    <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #333; color: #ccc;">
+                &copy; 2025 Event Finder. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Add dynamic text animation
+        const texts = [
+            'Discover Amazing Events Near You',
+            'Connect with Your Community',
+            'Share Unforgettable Experiences',
+            'Find Your Next Adventure'
+        ];
+        
+        let currentText = 0;
+        setInterval(() => {
+            currentText = (currentText + 1) % texts.length;
+            // You can add text switching logic here if needed
+        }, 4000);
+    </script>
 </body>
-
 </html>
