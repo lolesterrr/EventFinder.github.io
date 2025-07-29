@@ -176,7 +176,7 @@
             right: 0;
             width: 60%;
             height: 100%;
-            background: url('https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg') center/cover;
+            background: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=1200&fit=crop&crop=center') center/cover;
             opacity: 0.3;
             clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
         }
@@ -285,6 +285,55 @@
             50% { transform: translateY(-20px) rotate(5deg); }
         }
 
+        /* App Screenshots Section */
+        .app-showcase {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .screenshot-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(99, 102, 241, 0.3);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            padding: 2rem;
+            color: white;
+        }
+
+        .screenshot-overlay h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
         /* Features Section */
         .features {
             padding: 8rem 2rem;
@@ -359,7 +408,7 @@
             line-height: 1.6;
         }
 
-        /* Interactive Demo */
+        /* Video Demo Section */
         .demo-section {
             padding: 8rem 2rem;
             text-align: center;
@@ -387,10 +436,57 @@
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1551818255-e6e10975cd73?w=300&h=560&fit=crop') center/cover;
             border-radius: 30px;
             position: relative;
             overflow: hidden;
+            background: #000;
+        }
+
+        .demo-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 30px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(99, 102, 241, 0.9);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .phone-mockup:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-overlay:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .video-overlay i {
+            font-size: 2rem;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=600&fit=crop') center/cover;
+            border-radius: 30px;
+            position: relative;
         }
 
         .app-overlay {
@@ -404,6 +500,66 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 8rem 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .step-image {
+            width: 200px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .step-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .step p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
         }
 
         /* Stats Section */
@@ -514,6 +670,8 @@
             .cta-container { flex-direction: column; align-items: center; }
             .features-grid { grid-template-columns: 1fr; }
             .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .steps-container { grid-template-columns: 1fr; }
         }
 
         /* Scroll animations */
@@ -579,7 +737,8 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#demo">Demo</a></li>
-                <li><a href="#download">Download</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="https://github.com/Reinaatim8/EventFinder-Recess">GITHUB</a></li>
             </ul>
         </div>
     </nav>
@@ -590,7 +749,7 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Discover Tomorrow's Events Today</h1>
-                <p>Simple & Revolutionary event discovery platform . Find extraordinary experiences, connect with amazing people, and create unforgettable memories in your city.</p>
+                <p>Simple & Revolutionary event discovery platform. Find extraordinary experiences, connect with amazing people, and create unforgettable memories in your city.</p>
                 <div class="cta-container">
                     <a href="#" class="btn btn-primary">
                         <i class="fas fa-rocket"></i> Launch App
@@ -616,6 +775,49 @@
         </div>
     </section>
 
+    <!-- App Screenshots Showcase -->
+    <section class="app-showcase reveal" id="screenshots">
+        <h2 class="section-title">App Screenshots</h2>
+        <p style="text-align: center; color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 2rem;">See EventFinder in action</p>
+        <div class="showcase-grid">
+            <div class="screenshot-card reveal">
+                <!-- REPLACE THIS IMAGE WITH YOUR HOME SCREEN SCREENSHOT -->
+                <img src="img/IMG_4125.jpg" alt="Home Screen">
+                <div class="screenshot-overlay">
+                    <h3>Home Screen</h3>
+                    <p>Discover events near you with our intuitive interface</p>
+                </div>
+            </div>
+
+            <div class="screenshot-card reveal">
+                <!-- REPLACE THIS IMAGE WITH YOUR EVENT DETAILS SCREENSHOT -->
+                <img src="img/details.png" alt="Event Details">
+                <div class="screenshot-overlay">
+                    <h3>Event Details</h3>
+                    <p>Rich event information with photos, reviews, and booking</p>
+                </div>
+            </div>
+
+            <div class="screenshot-card reveal">
+                <!-- REPLACE THIS IMAGE WITH YOUR PROFILE SCREENSHOT -->
+                <img src="img/mapp.png">
+                <div class="screenshot-overlay">
+                    <h3>Events MAP</h3>
+                    <p>Discover Events Around You on the intuitive map</p>
+                </div>
+            </div>
+
+            <div class="screenshot-card reveal">
+                <!-- REPLACE THIS IMAGE WITH YOUR SEARCH/FILTER SCREENSHOT -->
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=600&fit=crop" alt="Search & Filter">
+                <div class="screenshot-overlay">
+                    <h3>Smart Search</h3>
+                    <p>Advanced filtering to find exactly what you're looking for</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section class="features reveal" id="features">
         <h2 class="section-title">Revolutionary Features</h2>
@@ -623,7 +825,7 @@
             <div class="feature reveal">
                 <div class="feature-icon"><i class="fas fa-brain"></i></div>
                 <h3>Preference Based Discovery</h3>
-                <p>Recommended Events based soley on what you love.</p>
+                <p>Recommended Events based solely on what you love.</p>
             </div>
 
             <div class="feature reveal">
@@ -647,7 +849,7 @@
             <div class="feature reveal">
                 <div class="feature-icon"><i class="fas fa-coins"></i></div>
                 <h3>Smart Payments</h3>
-                <img src="img/mtn-momo-mobile-money-uganda-logo-png_seeklogo-556395.png" alt="mtn logo" style="width: 100px;">
+                <img src="img/mtn-momo-mobile-money-uganda-logo-png_seeklogo-556395.png" style="width: 74px;">
                 <p>Mobile money, cards - pay however you want with instant, secure transactions worldwide.</p>
             </div>
 
@@ -659,17 +861,68 @@
         </div>
     </section>
 
-    <!-- Demo Section -->
+    <!-- Video Demo Section -->
     <section class="demo-section reveal" id="demo">
-        <h2 class="section-title">Experience the Future</h2>
+        <h2 class="section-title">Watch EventFinder in Action</h2>
+        <p style="color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 3rem;">See how easy it is to discover and book amazing events</p>
         <div class="demo-container">
             <div class="phone-mockup">
                 <div class="phone-screen">
-                    <div class="app-overlay">
-                        <h3 style="color: white; margin-bottom: 1rem;">Live Events Near You</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Real-time event discovery with augmented reality integration</p>
+                    <!-- REPLACE THIS VIDEO WITH YOUR APP DEMO VIDEO -->
+                    <!-- Option 1: If you have a video file -->
+                    <!-- <video class="demo-video" controls poster="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=600&fit=crop">
+                        <source src="YOUR_VIDEO_FILE.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    
+                    <!-- Option 2: Placeholder with play button (current) -->
+                    <div class="video-placeholder">
+                        <div class="video-overlay" onclick="playVideo()">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="app-overlay">
+                            <h3 style="color: white; margin-bottom: 1rem;">Live Events Near You</h3>
+                            <p style="color: rgba(255,255,255,0.8);">Real-time event discovery with augmented reality integration</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works reveal" id="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <p style="text-align: center; color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 4rem;">Three simple steps to create and discover amazing events</p>
+        <div class="steps-container">
+            <div class="step reveal">
+                <div class="step-number">1</div>
+                <div class="step-image">
+                    <!-- REPLACE THIS IMAGE WITH YOUR ONBOARDING/SIGNUP SCREENSHOT -->
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=300&fit=crop" alt="Sign Up Step">
+                </div>
+                <h3>Sign Up & Set Preferences</h3>
+                <p>Create your profile and tell us what kind of events you love. Our AI learns your preferences instantly.</p>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-number">2</div>
+                <div class="step-image">
+                    <!-- REPLACE THIS IMAGE WITH YOUR DISCOVERY/BROWSE SCREENSHOT -->
+                    <img src="img/homee.png" alt="Discover Step">
+                </div>
+                <h3>Host and share Events</h3>
+                <p>Tailor your events and post them for the world to join you</p>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-number">3</div>
+                <div class="step-image">
+                    <!-- REPLACE THIS IMAGE WITH YOUR BOOKING/TICKET SCREENSHOT -->
+                    <img src="img/revenuee.png">
+                </div>
+                <h3>Track Your Revenue</h3>
+                <p>Track your event earnings using our app analytics</p>
             </div>
         </div>
     </section>
@@ -830,7 +1083,7 @@
             });
 
             // Interactive hover effects
-            document.querySelectorAll('.btn, .feature, .social-links a').forEach(el => {
+            document.querySelectorAll('.btn, .feature, .social-links a, .screenshot-card').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.style.transform = 'scale(1.5)';
                     cursorFollow.style.transform = 'scale(1.5)';
@@ -844,7 +1097,10 @@
             // Parallax effect
             window.addEventListener('scroll', () => {
                 const scrolled = window.pageYOffset;
-                document.querySelector('.hero-bg').style.transform = `translateY(${scrolled * 0.5}px)`;
+                const heroBackground = document.querySelector('.hero-bg');
+                if (heroBackground) {
+                    heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
                 document.querySelectorAll('.floating-card').forEach((card, i) => {
                     card.style.transform = `translateY(${scrolled * (0.2 + i * 0.1)}px)`;
                 });
@@ -868,6 +1124,32 @@
                     heroTitle.style.opacity = '1';
                 }, 500);
             }, 4000);
+        });
+
+        // Video play function
+        function playVideo() {
+            // This function will be called when the play button is clicked
+            // You can replace this with actual video playback logic
+            alert('Replace this with your actual video! \n\nTo implement:\n1. Replace the placeholder image with your video\n2. Update this function to actually play the video\n3. Or link to a video hosting platform');
+            
+            // Example of how to implement with actual video:
+            /*
+            // const videoContainer = document.querySelector('.phone-screen');
+            // videoContainer.innerHTML = `
+            //     <video class="demo-video" controls autoplay>
+            //         <source src="YOUR_VIDEO_FILE.mp4" type="video/mp4">
+            //         Your browser does not support the video tag.
+            //     </video>
+            // `;
+            */
+        }
+
+        // Screenshot click handlers (optional)
+        document.querySelectorAll('.screenshot-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // You can add lightbox functionality here
+                console.log('Screenshot clicked - implement lightbox or modal here');
+            });
         });
     </script>
 </body>
